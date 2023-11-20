@@ -1,0 +1,72 @@
+<div
+  class="grid grid-cols-9 gap-[1px] bg-black border-black border-2 h-96 w-96"
+>
+  <ng-container *ngFor="let row of sudokuResult(); let rowIndex = index">
+    <ng-container *ngFor="let col of row; let colIndex = index">
+      <input
+        type="number"
+        min="1"
+        max="9"
+        onkeyup="if(value < 1 || value > 8) value='';"
+        [value]="col !== 0 ? col : ''"
+        (change)="onValueChange($event, colIndex, rowIndex)"
+        [readOnly]="isReadonly(col, colIndex, rowIndex)"
+        (click)="onInputEntered(colIndex, rowIndex)"
+        class="bg-white border-black text-center font-mono"
+        [ngClass]="{
+          'bg-sky-200 outline-none':
+            selectedInput &&
+            selectedInput.colIndex === colIndex &&
+            selectedInput.rowIndex === rowIndex
+        }"
+        [class.border-b-2]="rowIndex === 2 || rowIndex === 5"
+        [class.border-r-2]="colIndex === 2 || colIndex === 5"
+      />
+    </ng-container>
+  </ng-container>
+</div>
+
+<div class="flex items-center justify-between mt-[25px] w-96">
+  <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    (click)="validate()"
+  >
+    Validate
+  </button>
+
+  <button
+    class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    (click)="solve()"
+  >
+    Solve
+  </button>
+
+  <button
+    class="bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    (click)="resetFormOnOriginal()"
+  >
+    Reset
+  </button>
+
+  <span>Status: {{ isSolved() }}</span>
+</div>
+
+<div class="mt-[30px]">
+  <label for="select" for="pet-select">Choose difficulty: </label>
+
+  <select
+    #select
+    class="w-[80px]"
+    (change)="onLevelSelected($event)"
+    id="pet-select"
+  >
+    <option disabled value="">--Please choose an option--</option>
+    <option
+      *ngFor="let level of levelsOfDifficulty"
+      [value]="level"
+      [selected]="level === 'random'"
+    >
+      {{ level }}
+    </option>
+  </select>
+</div>
