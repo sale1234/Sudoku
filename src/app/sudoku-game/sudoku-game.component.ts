@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SudokuService } from './sudoku.service';
 
@@ -12,6 +12,7 @@ import { SudokuService } from './sudoku.service';
   host: {
     class: 'h-screen w-screen flex justify-center items-center flex-col',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SudokuGameComponent {
   private sudokuService = inject(SudokuService);

@@ -12,7 +12,7 @@
         (change)="onValueChange($event, colIndex, rowIndex)"
         [readOnly]="isReadonly(col, colIndex, rowIndex)"
         (click)="onInputEntered(colIndex, rowIndex)"
-        class="bg-white border-black text-center font-mono"
+        class="border-black text-center font-mono"
         [ngClass]="{
           'bg-sky-200 outline-none':
             selectedInput &&
